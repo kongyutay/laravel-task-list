@@ -2,8 +2,13 @@
     This is blade template engine
 </div>
 
-@isset($name)
+@forelse ($tasks as $task)
     <div>
-        My name is {{ $name }}
+        <a href="{{ route('tasks.show', ['id' => $task->id ]) }}">
+            {{ $task -> title }}
+        </a>
     </div>
-@endisset
+
+@empty
+    <div>There are no tasks!</div>
+@endforelse
