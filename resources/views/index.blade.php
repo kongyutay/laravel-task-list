@@ -1,5 +1,5 @@
 <div>
-    This is blade template engine
+    The list of tasks
 </div>
 
 @forelse ($tasks as $task)
