@@ -1,5 +1,7 @@
 <?php
 
+// use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 class Task
@@ -54,14 +56,23 @@ $tasks = [
     ),
 ];
 
-Route::get('/', function () use($tasks) {
+Route::get('/', function () {
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/tasks', function () use($tasks) {
     return view('index', [
         'tasks' => $tasks
     ]);
 })->name('tasks.index');
 
-Route::get('/{id}', function ($id) {
-    return 'one single task';
+Route::get('/tasks/{id}', function ($id) use($tasks) {
+    $task = collect($tasks)->firstWhere('id', $id);
+    if(! $task) {
+        abort(Response::HTTP_NOT_FOUND);
+    }
+
+    return view('show', ['task' => $task]);
 })->name('tasks.show');
 
 // Route::get('/hello', function () {
@@ -81,5 +92,5 @@ Route::get('/{id}', function ($id) {
 
 // 虽然内建了404页面，但是这个可以依然带去这个地方
 Route::fallback(action: function () {
-    return 'Still got somewhere!' ;
+    return 'Customize 404 Still got somewhere!' ;
 });
