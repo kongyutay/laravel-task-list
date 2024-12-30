@@ -19,10 +19,13 @@ Route::get('/tasks', function () {
     // 一般上静态方法通常直接返回模型实例或集合（例如 find, all, create）。
     // 查询构建器方法：需要通过方法链继续构建查询（例如 where, orderBy, latest）
 
-    // 这个ORM内建Query Builder，所以可以不用自己写query，query builder建立完成后要call get method才会执行，会返回构建器实例
+    // 这个Eloquent ORM内建Query Builder，所以可以不用自己写query，query builder建立完成后要call get method才会执行，会返回构建器实例
     return view('index', [
         'tasks' => \App\Models\Task::latest()->get()
     ]);
+    // return view('index', [
+    //     'tasks' => \App\Models\Task::latest()->where('completed', true)->get()
+    // ]);
 })->name('tasks.index');
 
 Route::get('/tasks/{id}', function ($id) {
