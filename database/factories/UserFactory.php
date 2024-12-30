@@ -35,6 +35,8 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
+    // Unverified 是factory里的状态修饰符，可以更灵活的调整一些数据的状态
+    // 分开写主要与 职责分离 和 灵活性 有关。默认数据生成规则是大家都verified了邮箱，但是要调整就要分开写
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
