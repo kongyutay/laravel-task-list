@@ -2,6 +2,7 @@
 
 // use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,7 +37,8 @@ Route::get('/tasks/{id}', function ($id) {
     return view('show', ['task' => \App\Models\Task::findOrFail('id', $id)]);
 })->name('tasks.show');
 
-Route::post('/tasks', function(){
+Route::post('/tasks', function(Request $request) {
+    dd($request->all());
 
 })->name('tasks.store');
 
