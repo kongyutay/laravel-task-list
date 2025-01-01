@@ -28,10 +28,19 @@ Route::get('/tasks', function () {
     // ]);
 })->name('tasks.index');
 
+// 要写在上面，先进行判断，不然会误以为id
+Route::view('/tasks/create', 'create')->name('tasks.create');
+
 Route::get('/tasks/{id}', function ($id) {
     // return view('show', ['task' => \App\Models\Task::find('id', $id)]);
     return view('show', ['task' => \App\Models\Task::findOrFail('id', $id)]);
 })->name('tasks.show');
+
+Route::post('/tasks', function(){
+
+})->name('tasks.store');
+
+// Route::view('/tasks/create', 'create');
 
 // Route::get('/hello', function () {
 //     return 'hello' ;
