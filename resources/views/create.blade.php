@@ -2,6 +2,15 @@
 
 @section('title', 'Add Task')
 
+@section('styles')
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.8rem;
+        }
+    </style>
+@endsection
+
 @section('content')
     {{-- 如果有返回错误，会是error对象，具体可以读取errors对象内的属性 --}}
     {{-- {{ $errors }} --}}
@@ -13,7 +22,7 @@
             <label for="title">Title</label>
             <input type="text" name="title" id="title" />
             @error('title')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -21,7 +30,7 @@
             <label for="description">Description</label>
             <textarea name="description" id="description" rows="5"></textarea>
             @error('description')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
@@ -29,7 +38,7 @@
             <label for="long_description">Long Description</label>
             <textarea name="long_description" id="long_description" rows="10"></textarea>
             @error('long_description')
-                <p>{{ $message }}</p>
+                <p class="error-message">{{ $message }}</p>
             @enderror
         </div>
 
