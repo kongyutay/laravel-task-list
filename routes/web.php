@@ -77,6 +77,16 @@ Route::put('/tasks/{task}', function(Task $task, TaskRequest $request) {
     return redirect()->route('tasks.show', ['task' => $task->id])->with('success','Task updated successfully!');
 })->name('tasks.update');
 
+
+// with() 方法用于向视图或重定向响应中附加数据。它是一种方便的方式来将额外的数据传递给视图或下一个请求的会话数据。
+// 有分为视图的with和重定向的with
+// 视图的with属于同一个请求
+// 重定向的with保存在session里面作为flashmessage，为下一次请求使用
+Route::delete('/tasks/{task}', function (Task $task) {
+    $task->delete();
+    return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
+});
+
 // Route::view('/tasks/create', 'create');
 
 // Route::get('/hello', function () {
