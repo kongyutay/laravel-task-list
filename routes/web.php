@@ -4,7 +4,7 @@
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Task;
 
 
 Route::get('/', function () {
@@ -22,7 +22,7 @@ Route::get('/tasks', function () {
 
     // 这个Eloquent ORM内建Query Builder，所以可以不用自己写query，query builder建立完成后要call get method才会执行，会返回构建器实例
     return view('index', [
-        'tasks' => \App\Models\Task::latest()->get()
+        'tasks' => Task::latest()->get()
     ]);
     // return view('index', [
     //     'tasks' => \App\Models\Task::latest()->where('completed', true)->get()
@@ -34,7 +34,7 @@ Route::view('/tasks/create', 'create')->name('tasks.create');
 
 Route::get('/tasks/{id}', function ($id) {
     // return view('show', ['task' => \App\Models\Task::find('id', $id)]);
-    return view('show', ['task' => \App\Models\Task::findOrFail('id', $id)]);
+    return view('show', ['task' => Task::findOrFail('id', $id)]);
 })->name('tasks.show');
 
 Route::post('/tasks', function(Request $request) {
@@ -44,6 +44,12 @@ Route::post('/tasks', function(Request $request) {
         'description' => 'required',
         'long_description' => 'required'
     ]);
+    $task = new Task();
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
+    $task->save();
+    return redirect()->route('tasks.show', ['id' => $task->id]);
 })->name('tasks.store');
 
 // Route::view('/tasks/create', 'create');
