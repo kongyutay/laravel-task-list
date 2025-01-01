@@ -32,6 +32,10 @@ Route::get('/tasks', function () {
 // 要写在上面，先进行判断，不然会误以为id
 Route::view('/tasks/create', 'create')->name('tasks.create');
 
+Route::get('/tasks/{id}/edit', function ($id) {
+    return view('edit', ['task' => Task::findOrFail('id', $id)]);
+})->name('tasks.edit');
+
 Route::get('/tasks/{id}', function ($id) {
     // return view('show', ['task' => \App\Models\Task::find('id', $id)]);
     return view('show', ['task' => Task::findOrFail('id', $id)]);
