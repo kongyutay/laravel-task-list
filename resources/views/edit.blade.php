@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-    <form action="POST" action="{{ route('tasks.store') }}">
+    <form action="POST" action="{{ route('tasks.update', ['id' => $task->id]) }}">
         @csrf
         {{-- method spoofing 方法让laravel模仿put方法 --}}
         @method('PUT')
