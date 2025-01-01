@@ -39,11 +39,11 @@ Route::view('/tasks/create', 'create')->name('tasks.create');
 // })->name('tasks.edit');
 
 // 默认task是primary key
-Route::get('/tasks/{task}/edit', function ($task) {
+Route::get('/tasks/{task}/edit', function (Task $task) {
     return view('edit', ['task' => $task]);
 })->name('tasks.edit');
 
-Route::get('/tasks/{task}', function ($task) {
+Route::get('/tasks/{task}', function (Task $task) {
     // return view('show', ['task' => \App\Models\Task::find('id', $id)]);
     return view('show', ['task' => $task]);
 })->name('tasks.show');
@@ -85,7 +85,7 @@ Route::put('/tasks/{task}', function(Task $task, TaskRequest $request) {
 Route::delete('/tasks/{task}', function (Task $task) {
     $task->delete();
     return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
-});
+})->name('tasks.destroy');
 
 // Route::view('/tasks/create', 'create');
 
