@@ -13,9 +13,27 @@
     <p>{{ $task->created_at }}</p>
     <p>{{ $task->updated_at }}</p>
 
+    <p>
+        @if ($task->completed)
+            Completed
+        @else
+            Not Completed
+        @endif
+    </p>
+
     {{-- 不传入id也可以，laravel自动知道要拿primary key --}}
     <div>
         <a href="{{ route('tasks.edit', ['task' => $task->id]) }}">Edit</a>
+    </div>
+
+    <div>
+        <form method="POST" action="{{ route('tasks.toggle-complete', ['task' => $task]) }}">
+            @csrf
+            @method('PUT')
+            <button type="submit">
+                Mark as {{ $task->completed ? 'not completed' : 'completed' }}
+            </button>
+        </form>
     </div>
 
     <div>
