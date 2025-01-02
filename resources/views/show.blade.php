@@ -13,6 +13,11 @@
     <p>{{ $task->created_at }}</p>
     <p>{{ $task->updated_at }}</p>
 
+    {{-- 不传入id也可以，laravel自动知道要拿primary key --}}
+    <div>
+        <a href="{{ route('tasks.edit', ['task' => $task->id]) }}">Edit</a>
+    </div>
+
     <div>
         <form action="{{ route('tasks.destroy', ['task' => $task->id]) }}" method="POST">
             @csrf
